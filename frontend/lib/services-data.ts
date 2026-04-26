@@ -1,0 +1,198 @@
+import { Sparkles, AlignVerticalSpaceAround, CircleDot, Crown, Smile, Activity, Stethoscope, Scissors } from "lucide-react"
+
+export const servicesData = {
+  "cosmetic-dentistry": {
+    icon: Sparkles,
+    title: "Cosmetic Dentistry",
+    description: "Transform your smile with our comprehensive range of aesthetic dental treatments designed to enhance the appearance of your teeth and boost your confidence.",
+    image: "/images/service-cosmetic.jpg",
+    benefits: [
+      "Enhanced smile aesthetics",
+      "Improved self-confidence",
+      "Natural-looking results",
+      "Long-lasting treatments",
+      "Customized treatment plans",
+    ],
+    process: [
+      { step: 1, title: "Consultation", description: "We assess your smile and discuss your aesthetic goals to create a personalized treatment plan." },
+      { step: 2, title: "Treatment Planning", description: "Using digital imaging, we show you the expected results before starting treatment." },
+      { step: 3, title: "Procedure", description: "Our skilled dentists perform your chosen treatment with precision and care." },
+      { step: 4, title: "Follow-up", description: "We ensure your satisfaction and provide guidance for maintaining your new smile." },
+    ],
+    faqs: [
+      { question: "How long does teeth whitening last?", answer: "Professional teeth whitening can last from 6 months to 2 years, depending on your diet and oral care habits." },
+      { question: "Are veneers permanent?", answer: "Veneers typically last 10-15 years with proper care. They require minimal maintenance but are not reversible." },
+      { question: "Is cosmetic dentistry painful?", answer: "Most cosmetic procedures are minimally invasive. We use local anesthesia and sedation options to ensure your comfort." },
+    ],
+  },
+  "orthodontics": {
+    icon: AlignVerticalSpaceAround,
+    title: "Orthodontics",
+    description: "Achieve perfectly aligned teeth and a beautiful smile with our advanced orthodontic treatments suitable for patients of all ages.",
+    image: "/images/service-orthodontics.jpg",
+    benefits: [
+      "Straightened teeth",
+      "Improved bite alignment",
+      "Better oral health",
+      "Enhanced facial aesthetics",
+      "Options for all ages",
+    ],
+    process: [
+      { step: 1, title: "Initial Assessment", description: "We take X-rays and impressions to evaluate your teeth and jaw alignment." },
+      { step: 2, title: "Treatment Plan", description: "A customized orthodontic plan is created based on your specific needs." },
+      { step: 3, title: "Braces Placement", description: "Your chosen braces are carefully fitted and adjusted for optimal results." },
+      { step: 4, title: "Regular Adjustments", description: "Periodic visits ensure your treatment progresses as planned." },
+    ],
+    faqs: [
+      { question: "What age is best for braces?", answer: "While orthodontic treatment can be done at any age, early evaluation around age 7 is recommended to catch potential issues." },
+      { question: "How long does orthodontic treatment take?", answer: "Treatment duration varies from 12 to 36 months depending on the complexity of your case." },
+      { question: "Do braces hurt?", answer: "You may experience mild discomfort after adjustments, but this typically subsides within a few days." },
+    ],
+  },
+  "dental-implants": {
+    icon: CircleDot,
+    title: "Dental Implants",
+    description: "Replace missing teeth with permanent dental implants that look, feel, and function like natural teeth for a lifetime of confident smiles.",
+    image: "/images/service-implants.jpg",
+    benefits: [
+      "Permanent tooth replacement",
+      "Natural appearance and function",
+      "Preserves jawbone health",
+      "No damage to adjacent teeth",
+      "Easy maintenance",
+    ],
+    process: [
+      { step: 1, title: "Evaluation", description: "Comprehensive examination including 3D imaging to assess bone quality and plan implant placement." },
+      { step: 2, title: "Implant Placement", description: "The titanium implant post is surgically placed into your jawbone." },
+      { step: 3, title: "Healing Period", description: "Allow 3-6 months for the implant to fuse with your bone (osseointegration)." },
+      { step: 4, title: "Crown Attachment", description: "A custom-made crown is attached to complete your natural-looking restoration." },
+    ],
+    faqs: [
+      { question: "Are dental implants safe?", answer: "Yes, dental implants have a 95-98% success rate and have been used safely for over 30 years." },
+      { question: "How long do implants last?", answer: "With proper care, dental implants can last a lifetime. The crown may need replacement after 10-15 years." },
+      { question: "Am I a candidate for implants?", answer: "Most adults with good general health are candidates. We evaluate bone density and overall health during consultation." },
+    ],
+  },
+  "crowns-bridges": {
+    icon: Crown,
+    title: "Crowns & Bridges",
+    description: "Restore damaged teeth or replace missing teeth with beautifully crafted crowns and bridges that blend seamlessly with your natural smile.",
+    image: "/images/service-crowns.jpg",
+    benefits: [
+      "Restores tooth function",
+      "Natural-looking results",
+      "Protects weakened teeth",
+      "Durable and long-lasting",
+      "Improves bite alignment",
+    ],
+    process: [
+      { step: 1, title: "Preparation", description: "The affected tooth is prepared and impressions are taken for custom fabrication." },
+      { step: 2, title: "Temporary Crown", description: "A temporary crown protects your tooth while the permanent one is being made." },
+      { step: 3, title: "Custom Fabrication", description: "Your crown or bridge is crafted to match your natural teeth perfectly." },
+      { step: 4, title: "Final Placement", description: "The permanent restoration is fitted, adjusted, and cemented in place." },
+    ],
+    faqs: [
+      { question: "How long do crowns last?", answer: "With proper care, dental crowns typically last 10-15 years or longer." },
+      { question: "Will the crown look natural?", answer: "Yes, we use high-quality materials that match your natural tooth color and shape perfectly." },
+      { question: "Is getting a crown painful?", answer: "The procedure is performed under local anesthesia, so you won't feel pain during treatment." },
+    ],
+  },
+  "invisalign": {
+    icon: Smile,
+    title: "Invisalign Clear Braces",
+    description: "Straighten your teeth discreetly with Invisalign clear aligners - the virtually invisible way to achieve a beautiful smile without metal braces.",
+    image: "/images/service-invisalign.jpg",
+    benefits: [
+      "Nearly invisible treatment",
+      "Removable for eating and cleaning",
+      "Comfortable and smooth",
+      "Fewer office visits",
+      "Predictable results",
+    ],
+    process: [
+      { step: 1, title: "3D Scanning", description: "We create a precise digital model of your teeth using advanced 3D scanning technology." },
+      { step: 2, title: "Custom Treatment Plan", description: "Your personalized treatment plan shows the expected movement of your teeth." },
+      { step: 3, title: "Aligner Fabrication", description: "A series of custom aligners are created specifically for your treatment." },
+      { step: 4, title: "Progressive Treatment", description: "You wear each set of aligners for 1-2 weeks, gradually moving your teeth." },
+    ],
+    faqs: [
+      { question: "How long does Invisalign treatment take?", answer: "Most treatments take 12-18 months, though simple cases may be completed in as little as 6 months." },
+      { question: "Can I eat with Invisalign?", answer: "You remove the aligners when eating, so there are no food restrictions during treatment." },
+      { question: "How often do I wear the aligners?", answer: "For best results, wear your aligners 20-22 hours per day, removing only for eating and cleaning." },
+    ],
+  },
+  "gum-treatment": {
+    icon: Activity,
+    title: "Gum Disease Treatment",
+    description: "Protect your oral health with our comprehensive periodontal treatments designed to prevent and treat gum disease at every stage.",
+    image: "/images/service-gum.jpg",
+    benefits: [
+      "Stops disease progression",
+      "Reduces inflammation",
+      "Prevents tooth loss",
+      "Freshens breath",
+      "Improves overall health",
+    ],
+    process: [
+      { step: 1, title: "Assessment", description: "We measure gum pockets and assess the extent of periodontal disease." },
+      { step: 2, title: "Deep Cleaning", description: "Scaling and root planing removes bacteria and tartar below the gumline." },
+      { step: 3, title: "Treatment", description: "Additional treatments may include antibiotics or surgical intervention if needed." },
+      { step: 4, title: "Maintenance", description: "Regular follow-up visits help maintain gum health and prevent recurrence." },
+    ],
+    faqs: [
+      { question: "What are the signs of gum disease?", answer: "Common signs include bleeding gums, bad breath, receding gums, and loose teeth." },
+      { question: "Is gum disease treatment painful?", answer: "We use local anesthesia to ensure comfort during deep cleaning and other treatments." },
+      { question: "Can gum disease be cured?", answer: "While early-stage gingivitis is reversible, advanced periodontitis requires ongoing management." },
+    ],
+  },
+  "dentures": {
+    icon: Stethoscope,
+    title: "Dentures & Removables",
+    description: "Restore your smile and ability to eat comfortably with our custom-made dentures and removable dental prosthetics.",
+    image: "/images/service-dentures.jpg",
+    benefits: [
+      "Restores smile appearance",
+      "Improves chewing ability",
+      "Supports facial structure",
+      "Affordable tooth replacement",
+      "Easy to maintain",
+    ],
+    process: [
+      { step: 1, title: "Consultation", description: "We assess your needs and discuss the best denture options for your situation." },
+      { step: 2, title: "Impressions", description: "Precise impressions of your mouth ensure a comfortable, custom fit." },
+      { step: 3, title: "Try-In", description: "A wax model allows you to preview and approve the look before final fabrication." },
+      { step: 4, title: "Fitting", description: "Your finished dentures are adjusted for optimal fit and comfort." },
+    ],
+    faqs: [
+      { question: "How long does it take to get used to dentures?", answer: "Most patients adapt to new dentures within 2-4 weeks of regular wear." },
+      { question: "How do I care for my dentures?", answer: "Remove and brush daily, soak overnight, and visit us regularly for adjustments." },
+      { question: "Will dentures affect my speech?", answer: "There may be a brief adjustment period, but most people adapt quickly." },
+    ],
+  },
+  "oral-surgery": {
+    icon: Scissors,
+    title: "Oral Surgery",
+    description: "Our experienced oral surgeons provide safe, precise surgical procedures using advanced techniques for optimal outcomes and faster recovery.",
+    image: "/images/service-surgery.jpg",
+    benefits: [
+      "Expert surgical care",
+      "Minimally invasive techniques",
+      "Faster recovery times",
+      "Comprehensive aftercare",
+      "Pain management options",
+    ],
+    process: [
+      { step: 1, title: "Consultation", description: "We evaluate your condition and explain the surgical procedure in detail." },
+      { step: 2, title: "Pre-operative Prep", description: "Instructions are provided to prepare you for a successful surgery." },
+      { step: 3, title: "Surgery", description: "The procedure is performed using appropriate anesthesia for your comfort." },
+      { step: 4, title: "Recovery", description: "We provide detailed aftercare instructions and follow-up appointments." },
+    ],
+    faqs: [
+      { question: "Is oral surgery painful?", answer: "Procedures are performed under anesthesia, and we provide pain management for recovery." },
+      { question: "How long is recovery from tooth extraction?", answer: "Simple extractions heal in about a week, while surgical extractions may take 2-3 weeks." },
+      { question: "When should wisdom teeth be removed?", answer: "We recommend removal when they cause pain, crowd other teeth, or show signs of problems." },
+    ],
+  },
+}
+
+export type ServiceSlug = keyof typeof servicesData
