@@ -5,7 +5,6 @@ import { HeroSection } from "@/components/home/hero-section"
 import { TrustIndicators } from "@/components/home/trust-indicators"
 import { ServicesSection } from "@/components/home/services-section"
 import { WhyChooseUs } from "@/components/home/why-choose-us"
-import { SmileGallery } from "@/components/home/smile-gallery"
 import { TestimonialsSection } from "@/components/home/testimonials-section"
 import { CTASection } from "@/components/home/cta-section"
 
@@ -18,7 +17,6 @@ export default function HomePage() {
         <TrustIndicators />
         <ServicesSection />
         <WhyChooseUs />
-        <SmileGallery />
         <TestimonialsSection />
         <CTASection />
       </main>
