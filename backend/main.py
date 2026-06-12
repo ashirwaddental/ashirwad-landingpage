@@ -26,7 +26,7 @@ app = FastAPI(
 # ─── CORS ────────────────────────────────────────────────────────────────────
 ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "https://ashirwaddentalclinic.vercel.app",
+    "https://ashirwad-landingpage.vercel.app",
 ]
 
 app.add_middleware(
