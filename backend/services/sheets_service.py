@@ -1,10 +1,13 @@
 import asyncio
+import logging
 from datetime import datetime
 
 import gspread
 from google.oauth2.service_account import Credentials
 
 from config import settings
+
+logger = logging.getLogger("ashirwad.sheets")
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -23,8 +26,10 @@ def _get_sheet():
     spreadsheet = client.open_by_key(settings.GOOGLE_SHEET_ID)
     worksheet = spreadsheet.sheet1
 
-    # Auto-create header row if the sheet is empty
-    if worksheet.row_count == 0 or worksheet.cell(1, 1).value != "Timestamp":
+    # Auto-create the header row if it isn't there yet. A brand-new sheet has an
+    # empty A1, so we check the actual value rather than row_count (which gspread
+    # reports as 1000 for a fresh sheet, never 0).
+    if worksheet.acell("A1").value != "Timestamp":
         worksheet.insert_row(HEADERS, index=1)
 
     return worksheet
@@ -36,11 +41,12 @@ def _append_sync(form: dict):
         datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         form["name"],
         form["email"],
-         "'" + form["phone"],
+        "'" + form["phone"],  # leading apostrophe keeps phone as text in Sheets
         form.get("service") or "Not specified",
         form["message"],
     ]
     sheet.append_row(row, value_input_option="USER_ENTERED")
+    logger.info("Appended row to Google Sheet %s", settings.GOOGLE_SHEET_ID)
 
 
 async def append_to_sheet(form: dict):

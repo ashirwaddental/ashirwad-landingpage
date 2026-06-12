@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
@@ -5,6 +7,15 @@ import uvicorn
 
 from services.email_service import send_email_notification
 from services.sheets_service import append_to_sheet
+
+# ─── LOGGING ───────────────────────────────────────────────────────────────────
+# Without this, every email/Sheets failure was swallowed silently, which is why
+# submissions "disappeared" with no trace. Now the real cause shows up in logs.
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+)
+logger = logging.getLogger("ashirwad.contact")
 
 app = FastAPI(
     title="Ashirwad Dental Clinic - Contact API",
@@ -45,34 +56,43 @@ def health_check():
 @app.post("/contact")
 async def submit_contact(form: ContactForm):
     """
-    Accepts contact form data, sends an email notification to the clinic,
-    and appends the entry to Google Sheets.
+    Accepts contact form data.
+
+    The Google Sheet is the system of record (where the submission is *stored*),
+    so a Sheets failure is treated as a hard failure and reported back to the
+    client. The email is a best-effort notification: if it fails we log it but
+    still consider the submission successful as long as it was stored.
     """
-    errors = []
+    payload = form.model_dump()
+    logger.info("New contact submission from %s <%s>", payload["name"], payload["email"])
 
-    # 1. Send email notification
+    # 1. Save to Google Sheets (primary storage — must succeed).
     try:
-        await send_email_notification(form.model_dump())
-    except Exception as e:
-        errors.append(f"Email notification failed: {str(e)}")
-
-    # 2. Save to Google Sheets
-    try:
-        await append_to_sheet(form.model_dump())
-    except Exception as e:
-        errors.append(f"Google Sheets update failed: {str(e)}")
-
-    # If both failed, raise 500
-    if len(errors) == 2:
+        await append_to_sheet(payload)
+        logger.info("Stored submission in Google Sheets for %s", payload["email"])
+    except Exception:
+        # exc_info=True logs the full traceback so the real root cause is visible
+        # (bad credentials, sheet not shared with the service account, wrong
+        #  GOOGLE_SHEET_ID, Sheets/Drive API not enabled, quota, etc.).
+        logger.exception("Google Sheets storage FAILED for %s", payload["email"])
         raise HTTPException(
             status_code=500,
-            detail="Failed to process your request. Please try again later."
+            detail="We couldn't save your request right now. Please try again or call us directly.",
         )
+
+    # 2. Send email notification (best-effort — failure must not lose the lead).
+    email_ok = True
+    try:
+        await send_email_notification(payload)
+        logger.info("Sent email notification for %s", payload["email"])
+    except Exception:
+        email_ok = False
+        logger.exception("Email notification FAILED for %s", payload["email"])
 
     return {
         "success": True,
         "message": "Thank you! We'll get back to you shortly.",
-        "warnings": errors if errors else None
+        "warnings": None if email_ok else ["Email notification could not be sent."],
     }
 
 

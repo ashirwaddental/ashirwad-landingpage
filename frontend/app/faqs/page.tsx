@@ -8,6 +8,8 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
  
 const faqs = [
   {
@@ -67,15 +69,17 @@ export default function FAQsPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold text-primary/70 tracking-wide uppercase">
+              <Reveal as="p" className="text-sm font-bold text-primary/70 tracking-wide uppercase">
                 FAQs
-              </p>
-              <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">
-                Frequently Asked Questions
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
+              </Reveal>
+              <TextReveal
+                as="h1"
+                className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl"
+                text="Frequently Asked Questions"
+              />
+              <Reveal as="p" delay={200} className="mt-6 text-lg text-muted-foreground">
                 Find answers to common questions about our services, treatments, and patient care.
-              </p>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -85,8 +89,10 @@ export default function FAQsPage() {
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl space-y-4">
               {faqs.map((faq, index) => (
-                <div
+                <Reveal
                   key={index}
+                  direction="up"
+                  delay={(index % 4) * 80}
                   className="group overflow-hidden rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md cursor-pointer"
                   onClick={() => toggleFAQ(index)}
                 >
@@ -106,7 +112,7 @@ export default function FAQsPage() {
                       </p>
                     </div>
                   )}
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -115,10 +121,12 @@ export default function FAQsPage() {
         {/* CTA Section */}
         <section className="bg-primary py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-serif text-3xl font-bold text-primary-foreground md:text-4xl">
-                Still Have Questions?
-              </h2>
+            <Reveal scale duration={800} className="mx-auto max-w-3xl text-center">
+              <TextReveal
+                as="h2"
+                className="font-serif text-3xl font-bold text-primary-foreground md:text-4xl"
+                text="Still Have Questions?"
+              />
               <p className="mt-4 text-primary-foreground/80">
                 Our team is here to help you. Reach out to us and we'll be happy to assist with
                 any questions about your dental care.
@@ -139,7 +147,7 @@ export default function FAQsPage() {
                   <a href="tel:+919480514054">Call: +91 94805 14054</a>
                 </Button>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>

@@ -1,4 +1,5 @@
 import { Users, Award, Heart, Sparkles } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
 
 const indicators = [
   {
@@ -30,7 +31,7 @@ export function TrustIndicators() {
         {/* 1-col on mobile, 2-col on sm, 4-col on lg */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {indicators.map((item, index) => (
-            <div key={index} className="flex items-start gap-4">
+            <Reveal key={index} direction="up" delay={index * 120} className="flex items-start gap-4">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <item.icon className="h-5 w-5" />
               </div>
@@ -38,7 +39,7 @@ export function TrustIndicators() {
                 <h3 className="text-sm font-semibold text-foreground md:text-base">{item.title}</h3>
                 <p className="mt-1 text-xs text-muted-foreground md:text-sm">{item.description}</p>
               </div>
-            </div>
+            </Reveal>
           ))}
         </div>
       </div>

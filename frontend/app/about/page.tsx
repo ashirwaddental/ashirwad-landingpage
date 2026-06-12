@@ -4,6 +4,9 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Award, Heart, Users, Sparkles, GraduationCap, Clock } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
+import { Parallax } from "@/components/animations/parallax"
 
 export const metadata: Metadata = {
   title: "About Us | Ashirwad Dental Clinic",
@@ -81,17 +84,19 @@ export default function AboutPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold text-primary/70 tracking-wide uppercase">
+              <Reveal as="p" className="text-sm font-bold text-primary/70 tracking-wide uppercase">
                 About Us
-              </p>
-              <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">
-                Your Trusted Partner in Dental Health
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                At Ashirwad Dental Clinic, we are committed to providing exceptional dental care 
-                using modern technology and a patient-focused approach. Our mission is to help 
+              </Reveal>
+              <TextReveal
+                as="h1"
+                className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl"
+                text="Your Trusted Partner in Dental Health"
+              />
+              <Reveal as="p" delay={250} className="mt-6 text-lg text-muted-foreground">
+                At Ashirwad Dental Clinic, we are committed to providing exceptional dental care
+                using modern technology and a patient-focused approach. Our mission is to help
                 every patient achieve optimal oral health and a confident, beautiful smile.
-              </p>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -100,39 +105,41 @@ export default function AboutPage() {
         <section className="bg-background py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="grid items-center gap-12 lg:grid-cols-2">
-              <div className="relative">
-                <div className="aspect-[1/1] overflow-hidden rounded-2xl shadow-xl">
+              <Reveal direction="right" duration={900} scale className="relative">
+                <Parallax speed={0.1} className="relative aspect-[1/1] overflow-hidden rounded-2xl shadow-xl">
                   <Image
                     src="/images/clinic-exterior.jpeg"
                     alt="Ashirwad Dental Clinic exterior"
                     fill
                     className="object-cover"
                   />
-                </div>
-              </div>
+                </Parallax>
+              </Reveal>
               <div className="space-y-6">
-                <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-                  About Ashirwad Dental Clinic
-                </h2>
+                <TextReveal
+                  as="h2"
+                  className="font-serif text-3xl font-bold text-foreground md:text-4xl"
+                  text="About Ashirwad Dental Clinic"
+                />
                 <div className="space-y-4 text-muted-foreground">
-                  <p>
-                    Founded with a vision to provide world-class dental care, Ashirwad Dental Clinic 
-                    has been serving patients with excellence for over a decade. Our state-of-the-art 
-                    facility is equipped with the latest dental technology, ensuring precise diagnosis 
+                  <Reveal as="p" delay={100}>
+                    Founded with a vision to provide world-class dental care, Ashirwad Dental Clinic
+                    has been serving patients with excellence for over a decade. Our state-of-the-art
+                    facility is equipped with the latest dental technology, ensuring precise diagnosis
                     and comfortable treatments.
-                  </p>
-                  <p>
-                    We believe that everyone deserves access to quality dental care. Our team of 
-                    experienced dentists and friendly staff work together to create a welcoming 
-                    environment where patients feel comfortable and well-cared for throughout their 
+                  </Reveal>
+                  <Reveal as="p" delay={200}>
+                    We believe that everyone deserves access to quality dental care. Our team of
+                    experienced dentists and friendly staff work together to create a welcoming
+                    environment where patients feel comfortable and well-cared for throughout their
                     dental journey.
-                  </p>
-                  <p>
-                    From routine check-ups to complex dental procedures, we offer comprehensive 
-                    dental services tailored to meet the unique needs of each patient. Our commitment 
-                    to continuous learning and adoption of advanced techniques ensures that you receive 
+                  </Reveal>
+                  <Reveal as="p" delay={300}>
+                    From routine check-ups to complex dental procedures, we offer comprehensive
+                    dental services tailored to meet the unique needs of each patient. Our commitment
+                    to continuous learning and adoption of advanced techniques ensures that you receive
                     the best possible care.
-                  </p>
+                  </Reveal>
                 </div>
               </div>
             </div>
@@ -143,22 +150,24 @@ export default function AboutPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto mb-12 max-w-2xl text-center">
-              <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-                Our Core Values
-              </h2>
-              <p className="mt-4 text-muted-foreground">
+              <TextReveal
+                as="h2"
+                className="font-serif text-3xl font-bold text-foreground md:text-4xl"
+                text="Our Core Values"
+              />
+              <Reveal as="p" delay={150} className="mt-4 text-muted-foreground">
                 These principles guide everything we do at Ashirwad Dental Clinic.
-              </p>
+              </Reveal>
             </div>
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {values.map((value, index) => (
-                <div key={index} className="rounded-xl bg-card p-6 shadow-md">
+                <Reveal key={index} direction="up" scale delay={index * 120} className="rounded-xl bg-card p-6 shadow-md transition-shadow hover:shadow-lg">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <value.icon className="h-6 w-6" />
                   </div>
                   <h3 className="font-semibold text-foreground">{value.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{value.description}</p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -168,13 +177,15 @@ export default function AboutPage() {
         <section className="bg-background py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto mb-12 max-w-2xl text-center">
-              <p className="text-sm font-medium uppercase tracking-wider text-secondary">Our Team</p>
-              <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">
-                Meet Our Dentists
-              </h2>
-              <p className="mt-4 text-muted-foreground">
+              <Reveal as="p" className="text-sm font-medium uppercase tracking-wider text-secondary">Our Team</Reveal>
+              <TextReveal
+                as="h2"
+                className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl"
+                text="Meet Our Dentists"
+              />
+              <Reveal as="p" delay={150} className="mt-4 text-muted-foreground">
                 Our experienced dental professionals are dedicated to your oral health.
-              </p>
+              </Reveal>
             </div>
 
             <div className="space-y-20">
@@ -182,18 +193,23 @@ export default function AboutPage() {
   <div
     key={index}
     className="grid items-center gap-20 lg:grid-cols-2">
-    <div className={`${index % 2 === 1 ? "lg:order-2 lg:pl-16" : "lg:pr-10"}`}>
-      <div className="relative aspect-[1/1] max-w-md overflow-hidden rounded-2xl shadow-xl">
+    <Reveal
+      direction={index % 2 === 1 ? "left" : "right"}
+      duration={900}
+      scale
+      className={`${index % 2 === 1 ? "lg:order-2 lg:pl-16" : "lg:pr-10"}`}
+    >
+      <Parallax speed={0.08} className="relative aspect-[1/1] max-w-md overflow-hidden rounded-2xl shadow-xl">
         <Image
           src={doctor.image}
           alt={doctor.name}
           fill
           className="object-cover"
         />
-      </div>
-    </div>
+      </Parallax>
+    </Reveal>
 
-    <div className={`space-y-6 ${index % 2 === 1 ? "lg:order-1 lg:pr-16" : "lg:pl-10"}`}>
+    <Reveal direction={index % 2 === 1 ? "right" : "left"} delay={120} className={`space-y-6 ${index % 2 === 1 ? "lg:order-1 lg:pr-16" : "lg:pl-10"}`}>
       <div>
         <h3 className="font-serif text-2xl font-bold text-foreground md:text-3xl">
           {doctor.name}
@@ -225,7 +241,7 @@ export default function AboutPage() {
           ))}
         </ul>
       </div>
-    </div>
+    </Reveal>
   </div>
 ))}
             </div>
@@ -236,20 +252,25 @@ export default function AboutPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto mb-12 max-w-2xl text-center">
-              <p className="text-sm font-medium uppercase tracking-wider text-secondary">Our Facilities</p>
-              <h2 className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl">
-                State-of-the-Art Clinic
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                Experience dental care in a modern, comfortable environment equipped with 
+              <Reveal as="p" className="text-sm font-medium uppercase tracking-wider text-secondary">Our Facilities</Reveal>
+              <TextReveal
+                as="h2"
+                className="mt-2 font-serif text-3xl font-bold text-foreground md:text-4xl"
+                text="State-of-the-Art Clinic"
+              />
+              <Reveal as="p" delay={150} className="mt-4 text-muted-foreground">
+                Experience dental care in a modern, comfortable environment equipped with
                 the latest technology.
-              </p>
+              </Reveal>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {facilities.map((facility, index) => (
-                <div
+                <Reveal
                   key={index}
+                  direction="up"
+                  scale
+                  delay={index * 110}
                   className="group relative aspect-square overflow-hidden rounded-xl shadow-md"
                 >
                   <Image
@@ -262,7 +283,7 @@ export default function AboutPage() {
                   <p className="absolute bottom-4 left-4 font-medium text-background opacity-0 transition-opacity group-hover:opacity-100">
                     {facility.alt}
                   </p>
-                </div>
+                </Reveal>
               ))}
             </div>
           </div>

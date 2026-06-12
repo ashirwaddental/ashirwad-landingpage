@@ -6,6 +6,8 @@ import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowRight, Sparkles, Stethoscope, CircleDot, Crown, AlignVerticalSpaceAround, Activity, Smile, Scissors, Calendar } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
 
 export const metadata: Metadata = {
   title: "Our Services | Ashirwad Dental Clinic",
@@ -92,16 +94,18 @@ export default function ServicesPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold text-primary/70 tracking-wide uppercase">
+              <Reveal as="p" className="text-sm font-bold text-primary/70 tracking-wide uppercase">
                 Our Services
-              </p>
-              <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">
-                Comprehensive Dental Care
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                From routine check-ups to advanced dental procedures, we offer a complete range of 
+              </Reveal>
+              <TextReveal
+                as="h1"
+                className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl"
+                text="Comprehensive Dental Care"
+              />
+              <Reveal as="p" delay={200} className="mt-6 text-lg text-muted-foreground">
+                From routine check-ups to advanced dental procedures, we offer a complete range of
                 services to meet all your oral health needs using the latest techniques and technology.
-              </p>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -111,25 +115,27 @@ export default function ServicesPage() {
           <div className="container mx-auto px-4">
             <div className="grid gap-8 md:grid-cols-2">
               {services.map((service, index) => (
-                <Card key={index} className="group overflow-hidden transition-shadow hover:shadow-lg">
-                  <CardHeader className="pb-4">
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                      <service.icon className="h-7 w-7" />
-                    </div>
-                    <CardTitle className="text-xl">{service.title}</CardTitle>
-                    <CardDescription className="text-base">{service.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="mb-6 grid grid-cols-2 gap-2">
-                      {service.features.map((feature, featureIndex) => (
-                        <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
-                          {feature}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
+                <Reveal key={index} direction="up" delay={(index % 2) * 120} className="h-full">
+                  <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                    <CardHeader className="pb-4">
+                      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                        <service.icon className="h-7 w-7" />
+                      </div>
+                      <CardTitle className="text-xl">{service.title}</CardTitle>
+                      <CardDescription className="text-base">{service.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="mb-6 grid grid-cols-2 gap-2">
+                        {service.features.map((feature, featureIndex) => (
+                          <li key={featureIndex} className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <span className="h-1.5 w-1.5 rounded-full bg-secondary" />
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -138,12 +144,14 @@ export default function ServicesPage() {
         {/* CTA Section */}
         <section className="bg-primary py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-serif text-3xl font-bold text-primary-foreground md:text-4xl">
-                Ready to Transform Your Smile?
-              </h2>
+            <Reveal scale duration={800} className="mx-auto max-w-3xl text-center">
+              <TextReveal
+                as="h2"
+                className="font-serif text-3xl font-bold text-primary-foreground md:text-4xl"
+                text="Ready to Transform Your Smile?"
+              />
               <p className="mt-4 text-primary-foreground/80">
-                Schedule a consultation with our expert dental team to discuss your treatment options 
+                Schedule a consultation with our expert dental team to discuss your treatment options
                 and create a personalized care plan.
               </p>
               <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
@@ -159,7 +167,7 @@ export default function ServicesPage() {
                   </a>
                 </Button>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>

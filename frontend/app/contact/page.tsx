@@ -9,6 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
 
 const contactInfo = [
   {
@@ -92,16 +94,18 @@ export default function ContactPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold text-primary/70 tracking-wide uppercase">
+              <Reveal as="p" className="text-sm font-bold text-primary/70 tracking-wide uppercase">
                 Contact Us
-              </p>
-              <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">
-                Get in Touch
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                Have questions or ready to schedule your appointment? We are here to help. 
+              </Reveal>
+              <TextReveal
+                as="h1"
+                className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl"
+                text="Get in Touch"
+              />
+              <Reveal as="p" delay={200} className="mt-6 text-lg text-muted-foreground">
+                Have questions or ready to schedule your appointment? We are here to help.
                 Reach out to us through any of the following channels.
-              </p>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -111,7 +115,8 @@ export default function ContactPage() {
           <div className="container mx-auto px-4">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {contactInfo.map((item, index) => (
-                <Card key={index} className="text-center">
+                <Reveal key={index} direction="up" scale delay={index * 110} className="h-full">
+                <Card className="h-full text-center transition-shadow hover:shadow-lg">
                   <CardHeader>
                     <div className="mx-auto mb-2 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <item.icon className="h-7 w-7" />
@@ -132,6 +137,7 @@ export default function ContactPage() {
                     ))}
                   </CardContent>
                 </Card>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -142,6 +148,7 @@ export default function ContactPage() {
           <div className="container mx-auto px-4">
             <div className="grid gap-12 lg:grid-cols-2">
               {/* Contact Form */}
+              <Reveal direction="left" duration={800}>
               <Card className="shadow-lg">
                 <CardHeader>
                   <CardTitle className="font-serif text-2xl">Send Us a Message</CardTitle>
@@ -261,9 +268,10 @@ export default function ContactPage() {
                   )}
                 </CardContent>
               </Card>
+              </Reveal>
 
               {/* Map */}
-              <div className="space-y-6">
+              <Reveal direction="right" duration={800} delay={120} className="space-y-6">
                 <Card className="shadow-lg overflow-hidden">
                   <div className="aspect-[4/3] w-full">
                     <iframe
@@ -318,7 +326,7 @@ export default function ContactPage() {
                     </div>
                   </CardContent>
                 </Card>
-              </div>
+              </Reveal>
             </div>
           </div>
         </section>

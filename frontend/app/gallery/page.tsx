@@ -7,6 +7,8 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
 
 const categories = [
   { id: "clinic", label: "Our Clinic" },
@@ -41,16 +43,18 @@ export default function GalleryPage() {
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="mx-auto max-w-3xl text-center">
-              <p className="text-sm font-bold text-primary/70 tracking-wide uppercase">
+              <Reveal as="p" className="text-sm font-bold text-primary/70 tracking-wide uppercase">
                 Gallery
-              </p>
-              <h1 className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl">
-                See Our Work
-              </h1>
-              <p className="mt-6 text-lg text-muted-foreground">
-                Explore our modern facilities and see the amazing smile transformations 
+              </Reveal>
+              <TextReveal
+                as="h1"
+                className="mt-2 font-serif text-4xl font-bold text-foreground md:text-5xl"
+                text="See Our Work"
+              />
+              <Reveal as="p" delay={200} className="mt-6 text-lg text-muted-foreground">
+                Explore our modern facilities and see the amazing smile transformations
                 we have achieved for our patients.
-              </p>
+              </Reveal>
             </div>
           </div>
         </section>
@@ -77,26 +81,27 @@ export default function GalleryPage() {
         <section className="bg-background py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {filteredImages.map((image) => (
-                <button
-                  key={image.id}
-                  onClick={() => setSelectedImage(image)}
-                  className="group relative aspect-square overflow-hidden rounded-xl bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.alt}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-foreground/0 transition-colors group-hover:bg-foreground/40" />
+              {filteredImages.map((image, index) => (
+                <Reveal key={image.id} direction="up" scale delay={(index % 4) * 90}>
+                  <button
+                    onClick={() => setSelectedImage(image)}
+                    className="group relative aspect-square w-full overflow-hidden rounded-xl bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+                  >
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      fill
+                      className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-foreground/0 transition-colors group-hover:bg-foreground/40" />
 
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
-                    <span className="rounded-full bg-background/90 px-4 py-2 text-sm font-medium text-foreground">
-                      View
-                    </span>
-                  </div>
-                </button>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity group-hover:opacity-100">
+                      <span className="rounded-full bg-background/90 px-4 py-2 text-sm font-medium text-foreground">
+                        View
+                      </span>
+                    </div>
+                  </button>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -136,12 +141,14 @@ export default function GalleryPage() {
         {/* CTA Section */}
         <section className="bg-muted py-16 md:py-24">
           <div className="container mx-auto px-4">
-            <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-serif text-3xl font-bold text-foreground md:text-4xl">
-                Ready to Transform Your Smile?
-              </h2>
+            <Reveal scale duration={800} className="mx-auto max-w-3xl text-center">
+              <TextReveal
+                as="h2"
+                className="font-serif text-3xl font-bold text-foreground md:text-4xl"
+                text="Ready to Transform Your Smile?"
+              />
               <p className="mt-4 text-muted-foreground">
-                Join our many satisfied patients and start your journey to a beautiful, 
+                Join our many satisfied patients and start your journey to a beautiful,
                 healthy smile today.
               </p>
               <div className="mt-8">
@@ -149,7 +156,7 @@ export default function GalleryPage() {
                   <a href="/contact">Book Your Consultation</a>
                 </Button>
               </div>
-            </div>
+            </Reveal>
           </div>
         </section>
       </main>

@@ -4,6 +4,8 @@ import { useState } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Reveal } from "@/components/animations/reveal"
+import { TextReveal } from "@/components/animations/text-reveal"
 
 const testimonials = [
   {
@@ -57,13 +59,15 @@ export function TestimonialsSection() {
     <section className="bg-primary py-16 md:py-24">
       <div className="container mx-auto px-4">
         <div className="mx-auto mb-12 max-w-2xl text-center">
-          <p className="text-sm font-medium uppercase tracking-wider text-secondary">Testimonials</p>
-          <h2 className="mt-2 font-serif text-3xl font-bold text-primary-foreground md:text-4xl">
-            What Our Patients Say
-          </h2>
+          <Reveal as="p" className="text-sm font-medium uppercase tracking-wider text-secondary">Testimonials</Reveal>
+          <TextReveal
+            as="h2"
+            className="mt-2 font-serif text-3xl font-bold text-primary-foreground md:text-4xl"
+            text="What Our Patients Say"
+          />
         </div>
 
-        <div className="mx-auto max-w-4xl">
+        <Reveal direction="up" scale duration={800} className="mx-auto max-w-4xl">
           <div className="relative rounded-2xl bg-card p-8 shadow-xl md:p-12">
             <Quote className="absolute left-6 top-6 h-12 w-12 text-primary/20 md:left-8 md:top-8" />
             
@@ -125,7 +129,7 @@ export function TestimonialsSection() {
               </Button>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
