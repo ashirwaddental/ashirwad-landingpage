@@ -34,7 +34,7 @@ export function WhyChooseUs() {
           <Reveal direction="right" duration={900} scale className="relative order-last lg:order-first">
             <Parallax speed={0.1} className="relative aspect-[1/1] overflow-hidden rounded-2xl shadow-xl">
               <Image
-                src="/images/dental-team.jpg"
+                src="/images/dental-team.jpeg"
                 alt="Ashirwad Dental Clinic team of professionals"
                 fill
                 className="object-cover"
