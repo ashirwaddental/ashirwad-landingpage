@@ -51,10 +51,7 @@ export function Navigation() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b backdrop-blur transition-all duration-300 supports-[backdrop-filter]:bg-background/60",
-        scrolled
-          ? "border-border/60 bg-background/95 shadow-sm"
-          : "border-border/40 bg-background/95",
+        "sticky top-0 z-50 w-full bg-transparent transition-all duration-300",
         isHidden ? "-translate-y-full" : "translate-y-0",
       )}
     >
@@ -82,7 +79,7 @@ export function Navigation() {
         </Link>
 
         {/* Desktop Navigation — pill-shaped */}
-        <nav className="hidden items-center gap-1 rounded-full border border-border/60 bg-background/70 p-1 shadow-sm backdrop-blur md:flex">
+        <nav className="hidden items-center gap-1 rounded-full border border-border/60 bg-background/80 p-1 shadow-sm backdrop-blur-md md:flex">
           {navLinks.map((link) => {
             const active = pathname === link.href
             return (
@@ -132,7 +129,7 @@ export function Navigation() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-t border-border bg-background md:hidden">
+        <div className="border-t border-border bg-background/95 backdrop-blur md:hidden">
           <nav className="container mx-auto flex flex-col gap-4 px-4 py-6">
             {navLinks.map((link) => (
               <Link
@@ -148,7 +145,7 @@ export function Navigation() {
             <hr className="border-border" />
 
             <a
-              href="tel:+919876543210"
+              href="tel:+919480514054"
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
             >
               <Phone className="h-4 w-4" />

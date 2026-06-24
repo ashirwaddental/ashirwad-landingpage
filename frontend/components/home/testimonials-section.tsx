@@ -1,11 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Reveal } from "@/components/animations/reveal"
 import { TextReveal } from "@/components/animations/text-reveal"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel"
 
 const testimonials = [
   {
@@ -36,24 +42,38 @@ const testimonials = [
     id: 4, 
     name: "Suprith G",
     location: "Bengaluru",
-    image: "/images/patient-4.jpg",
+    image: "/images/patient-1.jpg",
     rating: 5,
     text: "I should Thank Dr.Sanjay for taking great care of my teeth. He always makes sure I am comfortable during each visit and explains everything in a way that I can understand. I'm grateful for the way he helped me in my Root canal treatment. I never felt uneasiness during the treatment. Very clean environment.",
   },
 ]
 
 export function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [api, setApi] = useState<CarouselApi>()
+  const [current, setCurrent] = useState(0)
+  const [count, setCount] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
 
-  const next = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length)
-  }
+  useEffect(() => {
+    if (!api) return
 
-  const prev = () => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)
-  }
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
 
-  const currentTestimonial = testimonials[currentIndex]
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap())
+    })
+  }, [api])
+
+  useEffect(() => {
+    if (!api || isHovered) return
+
+    const intervalId = setInterval(() => {
+      api.scrollNext()
+    }, 5000)
+
+    return () => clearInterval(intervalId)
+  }, [api, isHovered])
 
   return (
     <section className="bg-primary py-16 md:py-24">
@@ -67,65 +87,92 @@ export function TestimonialsSection() {
           />
         </div>
 
-        <Reveal direction="up" scale duration={800} className="mx-auto max-w-4xl">
-          <div className="relative rounded-2xl bg-card p-8 shadow-xl md:p-12">
-            <Quote className="absolute left-6 top-6 h-12 w-12 text-primary/20 md:left-8 md:top-8" />
-            
-            <div className="relative z-10">
-              <div className="mb-6 flex justify-center gap-1">
-                {Array.from({ length: currentTestimonial.rating }).map((_, i) => (
-                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+        <Reveal direction="up" scale duration={800} className="w-full">
+          <div 
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            className="w-full"
+          >
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full"
+            >
+              <CarouselContent className="-ml-4 md:-ml-6 flex items-stretch">
+                {testimonials.map((testimonial) => (
+                  <CarouselItem key={testimonial.id} className="pl-4 md:pl-6 basis-full md:basis-1/2 lg:basis-1/3 flex">
+                    <div className="flex flex-col justify-between w-full bg-card rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 relative border border-border/50">
+                      <div>
+                        <div className="flex justify-between items-start mb-6">
+                          <div className="flex gap-1">
+                            {Array.from({ length: testimonial.rating }).map((_, i) => (
+                              <Star key={i} className="h-4 w-4 fill-yellow-500 text-yellow-500" />
+                            ))}
+                          </div>
+                          <Quote className="h-8 w-8 text-primary/10" />
+                        </div>
+                        <blockquote className="mb-6 text-base md:text-[17px] leading-relaxed text-muted-foreground italic">
+                          {`"${testimonial.text}"`}
+                        </blockquote>
+                      </div>
+                      
+                      <div className="flex items-center gap-4 pt-4 border-t border-border/50 mt-auto">
+                        <div className="relative h-12 w-12 overflow-hidden rounded-full border-2 border-primary/20 shrink-0">
+                          <Image
+                            src={testimonial.image}
+                            alt={testimonial.name}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground text-sm md:text-base">{testimonial.name}</p>
+                          <p className="text-xs md:text-sm text-muted-foreground">{testimonial.location}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
                 ))}
-              </div>
+              </CarouselContent>
+            </Carousel>
 
-              <blockquote className="mb-8 text-center text-lg leading-relaxed text-muted-foreground md:text-xl">
-                {`"${currentTestimonial.text}"`}
-              </blockquote>
-
-              <div className="flex flex-col items-center gap-4">
-                <div className="relative h-16 w-16 overflow-hidden rounded-full border-4 border-primary/20">
-                  <Image
-                    src={currentTestimonial.image}
-                    alt={currentTestimonial.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold text-foreground">{currentTestimonial.name}</p>
-                  <p className="text-sm text-muted-foreground">{currentTestimonial.location}</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-8 flex items-center justify-center gap-4">
+            <div className="mt-10 flex items-center justify-center gap-6">
               <Button
                 variant="outline"
                 size="icon"
-                onClick={prev}
+                className="h-12 w-12 rounded-full border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0"
+                onClick={() => api?.scrollPrev()}
                 aria-label="Previous testimonial"
               >
-                <ChevronLeft className="h-5 w-5" />
+                <ChevronLeft className="h-6 w-6" />
               </Button>
-              <div className="flex gap-2">
-                {testimonials.map((_, index) => (
+              
+              <div className="flex gap-2 items-center">
+                {Array.from({ length: count }).map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentIndex(index)}
-                    className={`h-2 w-2 rounded-full transition-colors ${
-                      index === currentIndex ? "bg-primary" : "bg-border"
+                    onClick={() => api?.scrollTo(index)}
+                    className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      index === current
+                        ? "bg-primary-foreground w-8"
+                        : "bg-primary-foreground/30 w-2.5 hover:bg-primary-foreground/60"
                     }`}
                     aria-label={`Go to testimonial ${index + 1}`}
                   />
                 ))}
               </div>
+
               <Button
                 variant="outline"
                 size="icon"
-                onClick={next}
+                className="h-12 w-12 rounded-full border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary transition-all duration-300 cursor-pointer flex items-center justify-center shrink-0"
+                onClick={() => api?.scrollNext()}
                 aria-label="Next testimonial"
               >
-                <ChevronRight className="h-5 w-5" />
+                <ChevronRight className="h-6 w-6" />
               </Button>
             </div>
           </div>
@@ -134,3 +181,4 @@ export function TestimonialsSection() {
     </section>
   )
 }
+
