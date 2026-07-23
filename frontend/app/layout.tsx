@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: 'Ashirwad Dental Clinic ',
+  title: 'Ashirwad Dental Clinic| JP Nagar 6th Phase, Bangalore ',
   description: 'Experience premium dental care at Ashirwad Dental Clinic. We offer cosmetic dentistry, orthodontics, dental implants, Invisalign, and more with experienced dental professionals.',
   keywords: 'dental clinic, dentist, cosmetic dentistry, orthodontics, dental implants, Invisalign, teeth whitening',
   icons: {
