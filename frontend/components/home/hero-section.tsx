@@ -55,7 +55,7 @@ export function HeroSection() {
           <Reveal direction="left" duration={900} scale className="relative">
             <Parallax speed={0.12} className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl">
               <Image
-                src="/images/dental-team.jpg"
+                src="/images/dental-team.jpeg"
                 alt="Modern dental clinic with state-of-the-art equipment"
                 fill
                 className="object-cover"
